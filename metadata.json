@@ -1,0 +1,6 @@
+{
+  "name": "Smaran",
+  "description": "AI-based cognitive gaming and memory-assistance app for elderly dementia patients in India's North Eastern Region (NER).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
