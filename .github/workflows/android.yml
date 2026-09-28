@@ -13,18 +13,18 @@ jobs:
     - name: Checkout Source Code
       uses: actions/checkout@v4
 
-    - name: Set up Java 21 for Modern Gradle Engine
+    - name: Set up Java 21 Engine
       uses: actions/setup-java@v4
       with:
         java-version: '21'
         distribution: 'temurin'
 
-    - name: Setup Matching Cloud Gradle Engine
+    - name: Setup Matching Gradle Engine
       uses: gradle/actions/setup-gradle@v4
       with:
         gradle-version: '9.3.1'
 
-    - name: Bypass Code Signing for Prototype Validation
+    - name: Bypass Code Signing for Prototype
       run: |
         sed -i '/signingConfig = signingConfigs.getByName("release")/d' app/build.gradle.kts || true
         sed -i '/signingConfig = signingConfigs.getByName("debugConfig")/d' app/build.gradle.kts || true
