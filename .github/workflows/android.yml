@@ -13,16 +13,18 @@ jobs:
     - name: Checkout Source Code
       uses: actions/checkout@v4
 
-    - name: Set up Java 21 for Gradle 8.7
+    - name: Set up Java 17 for Project
       uses: actions/setup-java@v4
       with:
-        java-version: '21'
+        java-version: '17'
         distribution: 'temurin'
+        cache: gradle
 
-    - name: Set up Automated Builder Framework
+    - name: Set up Gradle Wrapper Execution
       uses: gradle/actions/setup-gradle@v4
-      with:
-        gradle-version: current
+
+    - name: Fix Wrapper Executable Permissions
+      run: chmod +x gradlew || true
 
     - name: Bypass Code Signing for Prototype
       run: |
@@ -30,7 +32,7 @@ jobs:
         sed -i '/signingConfig = signingConfigs.getByName("debugConfig")/d' app/build.gradle.kts || true
 
     - name: Build Debug APK Binary
-      run: gradle assembleDebug --no-daemon
+      run: ./gradlew assembleDebug --no-daemon
 
     - name: Upload APK Binary
       uses: actions/upload-artifact@v4
