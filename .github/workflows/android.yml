@@ -20,15 +20,15 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
-    - name: Grant Execute Permission for Gradle
-      run: chmod +x gradlew
+    - name: Set up Gradle Wrapper Automation
+      uses: gradle/actions/setup-gradle@v4
 
     - name: Bypass Code Signing for Prototype
       run: |
         sed -i '/signingConfig = signingConfigs.getByName("release")/d' app/build.gradle.kts
 
-    - name: Build Debug APK
-      run: ./gradlew assembleDebug --no-daemon
+    - name: Build Debug APK via Custom Runner
+      run: gradle assembleDebug --no-daemon
 
     - name: Upload APK Binary
       uses: actions/upload-artifact@v4
